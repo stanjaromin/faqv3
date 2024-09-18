@@ -1,0 +1,41 @@
+<!-- faq_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>FAQ List</h1>
+
+<button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#addFAQModal">Add New Q/A</button>
+
+{% for faq in faqs %}
+    <div class="card mb-2">
+        <div class="card-body">
+            <h5>{{ faq.question }}</h5>
+            <p>{{ faq.answer }}</p>
+            <a href="{% url 'edit_faq' faq.id %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'delete_faq' faq.id %}" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+{% endfor %}
+
+<!-- Add FAQ Modal -->
+<div class="modal fade" id="addFAQModal" tabindex="-1" aria-labelledby="addFAQModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addFAQModalLabel">Add New FAQ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    {{ form.as_p }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add FAQ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+<!-- schema_view.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>FAQPage Schema</h1>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <pre><code>{{ schema | safe }}</code></pre>
+        <button class="btn btn-primary" onclick="copyToClipboard()">Copy to Clipboard</button>
+    </div>
+</div>
+
+<script>
+    function copyToClipboard() {
+        const text = document.querySelector('pre code').innerText;
+        navigator.clipboard.writeText(text).then(function() {
+            alert('Schema copied to clipboard!');
+        }, function(err) {
+            alert('Failed to copy: ', err);
+        });
+    }
+</script>
+{% endblock %}
